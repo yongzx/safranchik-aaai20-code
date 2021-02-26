@@ -490,8 +490,10 @@ nb = NaiveBayes(
     balance_prior=5.0)
 
 # Trains the model
+config = LearningConfig()
+config.epochs=5
 p, r, f1 = train_generative_model(
-    nb, train_data, dev_data, epochs, gen_label_to_ix, LearningConfig())
+    nb, train_data, dev_data, gen_label_to_ix, config)
 
 # Evaluates the model
 print('Naive Bayes: \n' + str(evaluate_generative_model(model=nb,
