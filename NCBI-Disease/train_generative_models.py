@@ -491,7 +491,7 @@ nb = NaiveBayes(
 
 # Trains the model
 config = LearningConfig()
-config.epochs=5
+config.epochs = 5
 p, r, f1 = train_generative_model(
     nb, train_data, dev_data, gen_label_to_ix, config)
 
@@ -525,8 +525,10 @@ hmm = HMM(
     balance_prior=500)
 
 # Trains the model
+config = LearningConfig()
+config.epochs = 5
 p, r, f1 = train_generative_model(
-    hmm, train_data, dev_data, epochs, label_to_ix=gen_label_to_ix, config=LearningConfig())
+    hmm, train_data, dev_data, label_to_ix=gen_label_to_ix, config=config)
 
 # Evaluates the model
 print('HMM: \n' + str(evaluate_generative_model(model=hmm,
@@ -559,8 +561,10 @@ link_hmm = LinkedHMM(
     balance_prior=500)
 
 # Trains the model
+config = LearningConfig()
+config.epochs = 5
 p, r, f1 = train_generative_model(
-    link_hmm, train_data, dev_data, epochs, label_to_ix=gen_label_to_ix, config=LearningConfig())
+    link_hmm, train_data, dev_data, label_to_ix=gen_label_to_ix, config=config)
 
 # Evaluates the model
 print('Linked HMM: \n' + str(evaluate_generative_model(model=link_hmm,
