@@ -1,4 +1,5 @@
-// Configuration for the CONLL model from AllenAI, modified slightly
+// Configuration for the CONLL model from AllenAI, modified slightly 
+// https://gist.github.com/joelgrus/7cdb8fb2d81483a8d9ca121d9c617514
 // and switched to BERT features
 {
   "random_seed": std.extVar("RANDOM_SEED"),
