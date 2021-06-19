@@ -461,7 +461,7 @@ save_label_distribution(root / 'dev_data.p', dev_data)
 save_label_distribution(root / 'test_data.p', test_data)
 
 cnt = Counter()
-for instance in train_data + dev_data:
+for instance in list(train_data) + list(dev_data):
     for tag in instance['tags']:
         cnt[tag] += 1
 
