@@ -9,11 +9,13 @@ from wiser.data import save_label_distribution
 from wiser.eval import *
 from wiser.rules import ElmoLinkingRule
 from collections import Counter
+from pathlib import Path
 
 reader = NCBIDiseaseDatasetReader()
-train_data = reader.read('NCBI/NCBItrainset_corpus.txt')
-dev_data = reader.read('NCBI/NCBIdevelopset_corpus.txt')
-test_data = reader.read('NCBI/NCBItestset_corpus.txt')
+root = Path("/users/zyong2/data/zyong2/clws/scripts/exp-003/esteban")
+train_data = reader.read(root / 'NCBI/NCBItrainset_corpus.txt')
+dev_data = reader.read(root / 'NCBI/NCBIdevelopset_corpus.txt')
+test_data = reader.read(root / 'NCBI/NCBItestset_corpus.txt')
 
 
 ncbi_docs = list(train_data) + list(dev_data) + list(test_data)
@@ -21,7 +23,7 @@ ncbi_docs = list(train_data) + list(dev_data) + list(test_data)
 
 dict_core = set()
 dict_core_exact = set()
-with open('NCBI/dict_core.txt') as f:
+with open(root / 'NCBI/dict_core.txt') as f:
     for line in f.readlines():
         line = line.strip().split()
         term = tuple(line[1:])
@@ -50,7 +52,7 @@ dict_core_exact.remove(("VHL",))
 
 dict_full = set()
 
-with open('NCBI/dict_full.txt') as f:
+with open(root / 'NCBI/dict_full.txt') as f:
     for line in f.readlines():
         line = line.strip().split()
         dict_full.add(tuple(line))
@@ -239,7 +241,7 @@ print("✅🏃‍♂️ run LF_Syndrome")
 
 
 terms = []
-with open('NCBI/umls_body_part.txt', 'r') as f:
+with open(root / 'NCBI/umls_body_part.txt', 'r') as f:
     for line in f.readlines():
         terms.append(line.strip().split(" "))
 lf = DictionaryMatcher("TEMP", terms, i_label='TEMP', uncased=True, match_lemmas=True)
@@ -455,8 +457,8 @@ print("✅🏃‍♂️ run LF_ExtractedPhrase")
 print(score_labels_majority_vote(test_data, span_level=True))
 print('🔥--------------------🔥')
 
-save_label_distribution('dev_data.p', dev_data)
-save_label_distribution('test_data.p', test_data)
+save_label_distribution(root / 'dev_data.p', dev_data)
+save_label_distribution(root / 'test_data.p', test_data)
 
 cnt = Counter()
 for instance in train_data + dev_data:
@@ -467,10 +469,10 @@ disc_label_to_ix = {value[0]: ix for ix, value in enumerate(cnt.most_common())}
 gen_label_to_ix = {'ABS': 0, 'I': 1, 'O': 2}
 
 dist = get_mv_label_distribution(train_data, disc_label_to_ix, 'O')
-save_label_distribution('train_data_mv.p', train_data, dist)
+save_label_distribution(root / 'train_data_mv.p', train_data, dist)
 dist = get_unweighted_label_distribution(train_data, disc_label_to_ix, 'O')
 save_label_distribution(
-    'train_data_unweighted.p',
+    root / 'train_data_unweighted.p',
     train_data,
     dist)
 print("✅🏃‍♂️ run save_label_distribution")
@@ -505,7 +507,7 @@ label_votes, link_votes, seq_starts = get_generative_model_inputs(
     train_data, gen_label_to_ix)
 p_unary = nb.get_label_distribution(label_votes)
 save_label_distribution(
-    'train_data_nb.p',
+    root / 'train_data_nb.p',
     train_data,
     p_unary,
     None,
@@ -540,7 +542,7 @@ label_votes, link_votes, seq_starts = get_generative_model_inputs(
     train_data, gen_label_to_ix)
 p_unary, p_pairwise = hmm.get_label_distribution(label_votes, seq_starts)
 save_label_distribution(
-    'train_data_hmm.p',
+    root / 'train_data_hmm.p',
     train_data,
     p_unary,
     p_pairwise,
@@ -574,7 +576,7 @@ print('Linked HMM: \n' + str(evaluate_generative_model(model=link_hmm,
 inputs = get_generative_model_inputs(train_data, gen_label_to_ix)
 p_unary, p_pairwise = link_hmm.get_label_distribution(*inputs)
 save_label_distribution(
-    'train_data_link_hmm.p',
+    root / 'train_data_link_hmm.p',
     train_data,
     p_unary,
     p_pairwise,
