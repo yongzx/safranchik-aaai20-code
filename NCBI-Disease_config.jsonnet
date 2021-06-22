@@ -1,6 +1,7 @@
 // Configuration for the CONLL model from AllenAI, modified slightly
 // https://github.com/allenai/allennlp/issues/4273
 // and switched to BERT features
+// also see https://github.com/allenai/allennlp/issues/5131 for how long sequences are handled
 {
   "random_seed": std.extVar("RANDOM_SEED"),
   "numpy_seed": std.extVar("RANDOM_SEED"),
@@ -9,7 +10,7 @@
     "type": "weak_label",
     "token_indexers": {
       "bert": {
-        "type": "pretrained_transformer",
+        "type": "pretrained_transformer_mismatched",
         "model_name": "allenai/scibert_scivocab_uncased",
         "max_length": 512
       },
@@ -31,7 +32,7 @@
     "text_field_embedder": {
       "token_embedders": {
         "bert": {
-          "type": "pretrained_transformer",
+          "type": "pretrained_transformer_mismatched",
           "model_name": "allenai/scibert_scivocab_uncased",
           "max_length": 512
         },
