@@ -11,12 +11,12 @@ from wiser.rules import ElmoLinkingRule
 from collections import Counter
 
 reader = NCBIDiseaseDatasetReader()
-train_data = reader.read('NCBI/NCBItrainset_corpus.txt')
-dev_data = reader.read('NCBI/NCBIdevelopset_corpus.txt')
-test_data = reader.read('NCBI/NCBItestset_corpus.txt')
+train_data = list(reader.read('NCBI/NCBItrainset_corpus.txt'))
+dev_data = list(reader.read('NCBI/NCBIdevelopset_corpus.txt'))
+test_data = list(reader.read('NCBI/NCBItestset_corpus.txt'))
 
 
-ncbi_docs = list(train_data) + list(dev_data) + list(test_data)
+ncbi_docs = train_data + dev_data + test_data
 
 
 dict_core = set()
@@ -369,9 +369,9 @@ print("✅🏃‍♂️ run LF_HyphenatedPhrase")
 
 
 
-lf = ElmoLinkingRule(.8)
-lf.apply(ncbi_docs)
-print("✅🏃‍♂️ run LF_ElmoLinkingRule")
+# lf = ElmoLinkingRule(.8)
+# lf.apply(ncbi_docs)
+# print("✅🏃‍♂️ run LF_ElmoLinkingRule")
 
 
 class CommonBigram(LinkingRule):
@@ -459,7 +459,7 @@ save_label_distribution('dev_data.p', dev_data)
 save_label_distribution('test_data.p', test_data)
 
 cnt = Counter()
-for instance in list(train_data) + list(dev_data):
+for instance in train_data + dev_data:
     for tag in instance['tags']:
         cnt[tag] += 1
 

@@ -13,13 +13,11 @@ from pathlib import Path
 
 reader = NCBIDiseaseDatasetReader()
 root = Path("/users/zyong2/data/zyong2/clws/scripts/exp-003/esteban")
-train_data = reader.read(root / 'NCBI/NCBItrainset_corpus.txt')
-dev_data = reader.read(root / 'NCBI/NCBIdevelopset_corpus.txt')
-test_data = reader.read(root / 'NCBI/NCBItestset_corpus.txt')
+train_data = list(reader.read(root / 'NCBI/NCBItrainset_corpus.txt'))
+dev_data = list(reader.read(root / 'NCBI/NCBIdevelopset_corpus.txt'))
+test_data = list(reader.read(root / 'NCBI/NCBItestset_corpus.txt'))
 
-
-ncbi_docs = list(train_data) + list(dev_data) + list(test_data)
-
+ncbi_docs = train_data + dev_data + test_data
 
 dict_core = set()
 dict_core_exact = set()
