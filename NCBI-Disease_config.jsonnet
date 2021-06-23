@@ -1,7 +1,12 @@
 // Configuration for the CONLL model from AllenAI, modified slightly
 // https://github.com/allenai/allennlp/issues/4273
 // and switched to BERT features
-// also see https://github.com/allenai/allennlp/issues/5131 for how long sequences are handled
+// do_lowercase: see https://github.com/allenai/allennlp/pull/3364
+// truncate_long_sequences: see https://github.com/allenai/allennlp/issues/5131 for how long sequences are handled
+// train_parameters: see https://github.com/allenai/allennlp/issues/4273 as the older version wouldn't train BERT.
+// last_layer_only: in http://docs.allennlp.org/main/api/modules/token_embedders/pretrained_transformer_embedder/ , its default is true, but in
+//      allennlp-0.8.4 (refer to allennlp-0.9.0), top_layer_only defaults to false.
+
 {
   "random_seed": std.extVar("RANDOM_SEED"),
   "numpy_seed": std.extVar("RANDOM_SEED"),
@@ -10,7 +15,7 @@
     "type": "weak_label",
     "token_indexers": {
       "bert": {
-        "type": "pretrained_transformer_mismatched",
+        "type": "pretrained_transformer",
         "model_name": "allenai/scibert_scivocab_uncased",
         "max_length": 512
       },
@@ -32,22 +37,24 @@
     "text_field_embedder": {
       "token_embedders": {
         "bert": {
-          "type": "pretrained_transformer_mismatched",
+          "type": "pretrained_transformer",
           "model_name": "allenai/scibert_scivocab_uncased",
-          "max_length": 512
+          "max_length": 512,
+          "train_parameters": false,
+          "last_layer_only": false
         },
         "token_characters": {
             "type": "character_encoding",
             "embedding": {
-            "embedding_dim": 16,
-            "vocab_namespace": "token_characters"
+              "embedding_dim": 16,
+              "vocab_namespace": "token_characters"
             },
             "encoder": {
-            "type": "cnn",
-            "embedding_dim": 16,
-            "num_filters": 128,
-            "ngram_filter_sizes": [3],
-            "conv_layer_activation": "relu"
+              "type": "cnn",
+              "embedding_dim": 16,
+              "num_filters": 128,
+              "ngram_filter_sizes": [3],
+              "conv_layer_activation": "relu"
             }
         }
       }
@@ -83,9 +90,9 @@
     },
     "validation_metric": "+f1-measure-overall",
     "num_serialized_models_to_keep": 3,
-    "num_epochs": 75,
+    "num_epochs": 500,
     "grad_norm": 5.0,
     "patience": 25,
-    "cuda_device": -1,
+    "cuda_device": 0,
   }
 }
