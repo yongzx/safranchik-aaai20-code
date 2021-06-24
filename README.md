@@ -15,7 +15,7 @@ Yes, but it does NOT impact generative or discriminative models. All of differen
 
 ### LFs
 ```
-😕 Matching Analysis of LFs: ======
+👇 Matching Analysis of LFs: ======
 [Labeling Function] CoreDictionaryUncased: 100.00 %
 [Labeling Function] CoreDictionaryExact: 100.00 %
 [Labeling Function] CancerLike: 100.00 %
@@ -57,5 +57,13 @@ The main reason is that we would like to use `SpaCy>=3.0.0`, which is incompatib
 
 Same token (such as "A") can be labeled differently because of letter casing during lemmatization. For instance, the newer `wiser` would not convert the capital letters of "G" and "A" in the phrase *"splice-site mutation [IVS14+1G>A)]"* into lowercase, but the older counterpart would. Therefore, the older `wiser` would (miscorrectly) treat the lowercase "a" as a stopword.
 
+---
+## Results
 
-
+### Generative Models (New WISER vs Old WISER)
+| Generative Models | New P | New R | New F1 | Old F1 |
+| --- | --- | --- | --- | --- | 
+| MV | 71.14 | 58.45 | 64.17 | 61.66 |
+| NB | 77.23 | 61.91 | 68.73 | 68.72 |
+| HMM | 75.23 | 60.86 | 67.29 | 64.03 |
+| Linked-HMM | 89.53 | 68.21 |77.43 | 78.66 | 
