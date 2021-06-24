@@ -48,7 +48,7 @@ The main reason is that we would like to use `SpaCy>=3.0.0`, which is incompatib
 (3) **StopWords** (👍): New `wiser` does an even better job at recognizing stop words. Evaluation is done on the tokens that are assigned different tags by two different versions of `wiser`. 
 
 - new `wiser` identifies 197 stopwords that are assigned ABS by old `wiser`, whereas old `wiser` identifies 97 stopwords that are assigned ABS by new `wiser`. 
-- Here's the count of tokens where new `wiser` can identify but not the old `wiser`: `{'its': 111, 'A': 49, 'WAS': 20, 'Its': 4, 'I': 4, 'AS': 3, 'WHO': 2, 'Am': 1}`
+- Here's the count of tokens where new `wiser` identify as stopwords but not the old `wiser`: `{'its': 111, 'A': 49, 'WAS': 20, 'Its': 4, 'I': 4, 'AS': 3, 'WHO': 2, 'Am': 1}`
 - Here's the other way round: `{'A': 73, 'i': 8, 'I': 7, 'having': 3, 'NO': 2, 'AS': 2, 'Am': 1, 'WHO': 1}`
 
 Same token (such as "A") can labeled differently because of letter casing during lemmatization. For instance, the newer `wiser` would not convert the capital letters of "G" and "A" in the phrase *"splice-site mutation [IVS14+1G>A)]"* into lowercase, but the older counterpart would. Therefore, the older `wiser` would (miscorrectly) treat the lowercase "a" as a stopword.
