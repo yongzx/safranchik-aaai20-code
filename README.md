@@ -39,7 +39,7 @@ Yes, but it does NOT impact generative or discriminative models. All of differen
 
 ---
 
-(2) **Deficiency**, **Disorder**, **Lesion**, **Syndrome**, **BodyTerms** (?): This LF uses dependency relation tags, particularly "compound" tag, assigned by `spacy` dependency parser. However, even though we use the same trained model `en_core_web_sm`, the versions differ: the older `wiser` uses version 2.1.0 whereas the newer `wiser` uses version 3.0.0. Their dependency parsing accuracy differs too (see "las" or "dep_las") : [version 2.1.0](https://github.com/explosion/spacy-models/commit/8e402718f565d115a51b25c91a402139f71546e6) vs [version 3.0.0](https://github.com/explosion/spacy-models/commit/98dbe8238120bb079d318fadd8f924992d2569c4). 
+(2) **Deficiency**, **Disorder**, **Lesion**, **Syndrome**, **BodyTerms** (?): These LFs use dependency relation tags, particularly "compound" tag, assigned by `spacy` dependency parser. However, even though we use the same trained model `en_core_web_sm`, the versions differ: the older `wiser` uses version 2.1.0 whereas the newer `wiser` uses version 3.0.0. Their dependency parsing accuracies differ too (see "las" or "dep_las" in the following links) : [version 2.1.0](https://github.com/explosion/spacy-models/commit/8e402718f565d115a51b25c91a402139f71546e6) vs [version 3.0.0](https://github.com/explosion/spacy-models/commit/98dbe8238120bb079d318fadd8f924992d2569c4). 
 
 In other words, because the dependency relation tags can be different with the newer dependency parser. That is, some noun dependents originally tagged with "compound" tag are now assigned with other tags such as "amod" (adjectival modifier), or vice versa. 
 
