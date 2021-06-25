@@ -15,7 +15,7 @@
     "type": "weak_label",
     "token_indexers": {
       "bert": {
-        "type": "pretrained_transformer",
+        "type": "pretrained_transformer_mismatched",
         "model_name": "allenai/scibert_scivocab_uncased",
         "max_length": 512
       },
@@ -37,7 +37,7 @@
     "text_field_embedder": {
       "token_embedders": {
         "bert": {
-          "type": "pretrained_transformer",
+          "type": "pretrained_transformer_mismatched",
           "model_name": "allenai/scibert_scivocab_uncased",
           "max_length": 512,
           "train_parameters": false,
