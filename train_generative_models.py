@@ -368,10 +368,9 @@ lf.apply(ncbi_docs)
 print("✅🏃‍♂️ run LF_HyphenatedPhrase")
 
 
-
-# lf = ElmoLinkingRule(.8)
-# lf.apply(ncbi_docs)
-# print("✅🏃‍♂️ run LF_ElmoLinkingRule")
+lf = ElmoLinkingRule(.8)
+lf.apply(ncbi_docs)
+print("✅🏃‍♂️ run LF_ElmoLinkingRule")
 
 
 class CommonBigram(LinkingRule):

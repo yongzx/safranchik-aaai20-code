@@ -41,7 +41,7 @@ config_path = root / 'NCBI-Disease_config.jsonnet'
 cuda_device = 0
 num_iterations = 5
 for iteration in range(num_iterations):
-    for model in ['mv', 'unweighted', 'nb', 'hmm', 'link_hmm']:
+    for model in ['link_hmm', 'mv', 'unweighted', 'nb', 'hmm']:
 
         train_file = root / f'train_data_{model}.p'
         output_path = root / f'discri_{model}_{iteration}'
