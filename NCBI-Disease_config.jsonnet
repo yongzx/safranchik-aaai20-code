@@ -6,6 +6,8 @@
 // train_parameters: see https://github.com/allenai/allennlp/issues/4273 as the older version wouldn't train BERT.
 // last_layer_only: in http://docs.allennlp.org/main/api/modules/token_embedders/pretrained_transformer_embedder/ , its default is true, but in
 //      allennlp-0.8.4 (refer to allennlp-0.9.0), top_layer_only defaults to false.
+// type: "pretrained_transformer_mismatched" because in WeakLabelDatasetReader, we use instance['tokens'], which are strings that are tokenized into words.
+//      PretrainedTransformerMismatchedIndexer splits the words into wordpieces and flattens them out.
 
 {
   "random_seed": std.extVar("RANDOM_SEED"),
@@ -90,7 +92,7 @@
     },
     "validation_metric": "+f1-measure-overall",
     "num_serialized_models_to_keep": 3,
-    "num_epochs": 500,
+    "num_epochs": 75,
     "grad_norm": 5.0,
     "patience": 25,
     "cuda_device": 0,
